@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:todoey_flutter/widgets/task_list.dart';
 
 class TasksScreen extends StatelessWidget {
   @override
@@ -13,63 +14,66 @@ class TasksScreen extends StatelessWidget {
         ),
         onPressed: () {},
       ),
-      body: SafeArea(
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Padding(
-              padding: const EdgeInsets.only(
-                left: 30,
-                bottom: 15,
-                top: 15,
-                right: 15,
-              ),
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  CircleAvatar(
-                    backgroundColor: Colors.white,
-                    radius: 30,
-                    child: Icon(
-                      Icons.list,
-                      size: 30,
-                      color: Colors.lightBlueAccent,
-                    ),
-                  ),
-                  Text(
-                    'Todoey',
-                    style: TextStyle(
-                        fontSize: 50,
-                        color: Colors.white,
-                        fontWeight: FontWeight.w700),
-                  ),
-                  Text(
-                    '12 Tasks',
-                    style: TextStyle(
-                      fontSize: 16,
-                      color: Colors.white,
-                    ),
-                  ),
-                ],
-              ),
+      body: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            padding: const EdgeInsets.only(
+              top: 70,
+              left: 30,
+              bottom: 30,
+              right: 30,
             ),
-            Expanded(
-              child: Container(
-                decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.only(
-                    topLeft: Radius.circular(
-                      20,
-                    ),
-                    topRight: Radius.circular(
-                      20,
-                    ),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                CircleAvatar(
+                  backgroundColor: Colors.white,
+                  radius: 30,
+                  child: Icon(
+                    Icons.list,
+                    size: 30,
+                    color: Colors.lightBlueAccent,
+                  ),
+                ),
+                SizedBox(
+                  height: 10,
+                ),
+                Text(
+                  'Todoey',
+                  style: TextStyle(
+                      fontSize: 50,
+                      color: Colors.white,
+                      fontWeight: FontWeight.w700),
+                ),
+                Text(
+                  '12 Tasks',
+                  style: TextStyle(
+                    fontSize: 18,
+                    color: Colors.white,
+                  ),
+                ),
+              ],
+            ),
+          ),
+          Expanded(
+            child: Container(
+              padding: EdgeInsets.symmetric(horizontal: 20),
+              decoration: BoxDecoration(
+                color: Colors.white,
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(
+                    20,
+                  ),
+                  topRight: Radius.circular(
+                    20,
                   ),
                 ),
               ),
+              child: TaskList(),
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }

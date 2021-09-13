@@ -2,6 +2,11 @@ import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
 class AddTaskScreen extends StatelessWidget {
+  final Function onPressed;
+  String taskName = '';
+
+  AddTaskScreen({required this.onPressed});
+
   @override
   Widget build(BuildContext context) {
     return Container(
@@ -42,6 +47,9 @@ class AddTaskScreen extends StatelessWidget {
               TextField(
                 autofocus: true,
                 textAlign: TextAlign.center,
+                onChanged: (value) {
+                  taskName = value;
+                },
               ),
               SizedBox(
                 height: 20,
@@ -56,7 +64,9 @@ class AddTaskScreen extends StatelessWidget {
                     color: Colors.white,
                   ),
                 ),
-                onPressed: () {},
+                onPressed: () {
+                  onPressed(taskName);
+                },
               ),
             ],
           ),

@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:provider/provider.dart';
+import 'package:todoey_flutter/main.dart';
 import 'package:todoey_flutter/models/task.dart';
 import 'package:todoey_flutter/screens/add_task_screen.dart';
 import 'package:todoey_flutter/widgets/task_list.dart';
@@ -9,14 +11,10 @@ class TasksScreen extends StatefulWidget {
 }
 
 class _TasksScreenState extends State<TasksScreen> {
-  List<Task> tasks = [
-    Task(title: 'Task1'),
-    Task(title: 'Task1'),
-    Task(title: 'Task1'),
-  ];
-
   @override
   Widget build(BuildContext context) {
+    List<Task> tasks = Provider.of<Tasks>(context).tasks;
+
     return Scaffold(
       backgroundColor: Colors.lightBlueAccent,
       floatingActionButton: FloatingActionButton(
@@ -37,7 +35,9 @@ class _TasksScreenState extends State<TasksScreen> {
                   onPressed: (title) {
                     setState(() {
                       tasks.add(
-                        Task(title: title),
+                        Task(
+                          title: title,
+                        ),
                       );
                     });
                     Navigator.pop(context);
@@ -104,12 +104,7 @@ class _TasksScreenState extends State<TasksScreen> {
                   ),
                 ),
               ),
-              child: TaskList2(
-                tasks: tasks,
-                onChanged: (bool? newValue) {
-                  setState(() {});
-                },
-              ),
+              child: TaskList(),
             ),
           ),
         ],

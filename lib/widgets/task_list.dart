@@ -18,6 +18,9 @@ class TaskList extends StatelessWidget {
               onChanged: (bool? newValue) {
                 tasksData.updateTask(task);
               },
+              onLongPressed: () {
+                tasksData.removeTask(task);
+              },
             );
           },
           itemCount: tasksData.tasks.length,

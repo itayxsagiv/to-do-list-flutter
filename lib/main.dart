@@ -33,7 +33,13 @@ class _MyAppState extends State<MyApp> {
 class TasksData extends ChangeNotifier {
   List<Task> _tasks = [
     Task(
-      title: '1',
+      title: 'Task 1',
+    ),
+    Task(
+      title: 'Task 2',
+    ),
+    Task(
+      title: 'Task 3',
     ),
   ];
 

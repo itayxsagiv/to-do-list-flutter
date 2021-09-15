@@ -1,3 +1,5 @@
+import 'dart:collection';
+
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'package:todoey_flutter/models/task.dart';
@@ -7,12 +9,16 @@ void main() {
   runApp(MyApp());
 }
 
-class MyApp extends StatelessWidget {
-  // This widget is the root of your application.
+class MyApp extends StatefulWidget {
+  @override
+  _MyAppState createState() => _MyAppState();
+}
+
+class _MyAppState extends State<MyApp> {
   @override
   Widget build(BuildContext context) {
     return ChangeNotifierProvider(
-      create: (BuildContext context) => Tasks(),
+      create: (BuildContext context) => TasksData(),
       child: MaterialApp(
         title: 'Flutter Demo',
         theme: ThemeData(
@@ -24,15 +30,27 @@ class MyApp extends StatelessWidget {
   }
 }
 
-class Tasks extends ChangeNotifier {
-  List<Task> tasks = [
+class TasksData extends ChangeNotifier {
+  List<Task> _tasks = [
     Task(
       title: '1',
     ),
   ];
 
   void addTask(newTask) {
-    tasks.add(newTask);
+    _tasks.add(newTask);
+    notifyListeners();
+  }
+
+  int get taskCount {
+    return _tasks.length;
+  }
+
+  UnmodifiableListView<Task> get tasks {
+    return UnmodifiableListView(_tasks);
+  }
+
+  void updateUI() {
     notifyListeners();
   }
 }

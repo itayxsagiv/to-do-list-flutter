@@ -7,4 +7,9 @@ class Task {
   void toggleDone() {
     isChecked = !isChecked;
   }
+
+  @override
+  String toString() {
+    return '$title; $isChecked';
+  }
 }

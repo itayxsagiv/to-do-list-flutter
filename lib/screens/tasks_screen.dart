@@ -13,102 +13,93 @@ class TasksScreen extends StatefulWidget {
 class _TasksScreenState extends State<TasksScreen> {
   @override
   Widget build(BuildContext context) {
-    List<Task> tasks = Provider.of<Tasks>(context).tasks;
-
-    return Scaffold(
-      backgroundColor: Colors.lightBlueAccent,
-      floatingActionButton: FloatingActionButton(
-        backgroundColor: Colors.lightBlueAccent,
-        child: Icon(
-          Icons.add,
-          color: Colors.white,
-        ),
-        onPressed: () {
-          showModalBottomSheet(
-            context: context,
-            isScrollControlled: true,
-            builder: (context) => SingleChildScrollView(
-              child: Container(
-                padding: EdgeInsets.only(
-                    bottom: MediaQuery.of(context).viewInsets.bottom),
-                child: AddTaskScreen(
-                  onPressed: (title) {
-                    setState(() {
-                      tasks.add(
-                        Task(
-                          title: title,
-                        ),
-                      );
-                    });
-                    Navigator.pop(context);
-                  },
-                ),
-              ),
+    return Consumer<TasksData>(
+      builder: (BuildContext context, tasksData, Widget? child) {
+        return Scaffold(
+          backgroundColor: Colors.lightBlueAccent,
+          floatingActionButton: FloatingActionButton(
+            backgroundColor: Colors.lightBlueAccent,
+            child: Icon(
+              Icons.add,
+              color: Colors.white,
             ),
-          );
-        },
-      ),
-      body: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          Container(
-            padding: const EdgeInsets.only(
-              top: 70,
-              left: 30,
-              bottom: 30,
-              right: 30,
-            ),
-            child: Column(
-              crossAxisAlignment: CrossAxisAlignment.start,
-              children: [
-                CircleAvatar(
-                  backgroundColor: Colors.white,
-                  radius: 30,
-                  child: Icon(
-                    Icons.list,
-                    size: 30,
-                    color: Colors.lightBlueAccent,
+            onPressed: () {
+              showModalBottomSheet(
+                context: context,
+                isScrollControlled: true,
+                builder: (context) => SingleChildScrollView(
+                  child: Container(
+                    padding: EdgeInsets.only(
+                        bottom: MediaQuery.of(context).viewInsets.bottom),
+                    child: AddTaskScreen(),
                   ),
                 ),
-                SizedBox(
-                  height: 10,
+              );
+            },
+          ),
+          body: Column(
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Container(
+                padding: const EdgeInsets.only(
+                  top: 70,
+                  left: 30,
+                  bottom: 30,
+                  right: 30,
                 ),
-                Text(
-                  'Todoey',
-                  style: TextStyle(
-                      fontSize: 50,
-                      color: Colors.white,
-                      fontWeight: FontWeight.w700),
+                child: Column(
+                  crossAxisAlignment: CrossAxisAlignment.start,
+                  children: [
+                    CircleAvatar(
+                      backgroundColor: Colors.white,
+                      radius: 30,
+                      child: Icon(
+                        Icons.list,
+                        size: 30,
+                        color: Colors.lightBlueAccent,
+                      ),
+                    ),
+                    SizedBox(
+                      height: 10,
+                    ),
+                    Text(
+                      'Todoey',
+                      style: TextStyle(
+                          fontSize: 50,
+                          color: Colors.white,
+                          fontWeight: FontWeight.w700),
+                    ),
+                    Text(
+                      '${tasksData.taskCount} Tasks',
+                      style: TextStyle(
+                        fontSize: 18,
+                        color: Colors.white,
+                      ),
+                    ),
+                  ],
                 ),
-                Text(
-                  '${tasks.length} Tasks',
-                  style: TextStyle(
-                    fontSize: 18,
+              ),
+              Expanded(
+                child: Container(
+                  padding: EdgeInsets.symmetric(horizontal: 20),
+                  decoration: BoxDecoration(
                     color: Colors.white,
+                    borderRadius: BorderRadius.only(
+                      topLeft: Radius.circular(
+                        20,
+                      ),
+                      topRight: Radius.circular(
+                        20,
+                      ),
+                    ),
                   ),
-                ),
-              ],
-            ),
-          ),
-          Expanded(
-            child: Container(
-              padding: EdgeInsets.symmetric(horizontal: 20),
-              decoration: BoxDecoration(
-                color: Colors.white,
-                borderRadius: BorderRadius.only(
-                  topLeft: Radius.circular(
-                    20,
-                  ),
-                  topRight: Radius.circular(
-                    20,
-                  ),
+                  child: TaskList(),
                 ),
               ),
-              child: TaskList(),
-            ),
+            ],
           ),
-        ],
-      ),
+        );
+      },
     );
   }
 }

@@ -50,7 +50,8 @@ class TasksData extends ChangeNotifier {
     return UnmodifiableListView(_tasks);
   }
 
-  void updateUI() {
+  void updateTask(Task task) {
+    task.toggleDone();
     notifyListeners();
   }
 }
